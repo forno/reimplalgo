@@ -27,9 +27,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "reimplalgo/combination.hpp"
 
+#include <limits>
+
 #include <gtest/gtest.h>
 
-using func_signature = int(*)(const int&, const int&);
+using numeric_type = int;
+using func_signature = numeric_type(*)(const numeric_type&, const numeric_type&);
 
 class CombinationTest
   : public ::testing::TestWithParam<func_signature>
@@ -47,15 +50,28 @@ TEST_P(CombinationTest, NormalInputTest)
   EXPECT_EQ(124750, GetParam()(500, 2));
 }
 
-INSTANTIATE_TEST_CASE_P(FunctionsParameterized, CombinationTest,
-    ::testing::Values(reimplalgo::no_recursive::combination<int>,
-                      reimplalgo::simple_recursive::combination<int>));
+TEST_P(CombinationTest, ZeroInputTest)
+{
+  EXPECT_EQ(1, GetParam()(0, 0));
+  EXPECT_EQ(1, GetParam()(1, 0));
+  EXPECT_EQ(1, GetParam()(5, 0));
+}
 
-//TEST(AnswerTest, NormalInputTest)
-//{
-//  for (auto n {0}; n <= 5; ++n) {
-//    for (auto r {0}; r <= n; ++r)
-//      std::cout << n << " C " << r << '=' << reimplalgo::combination_fool(n, r) << "  ";
-//    std::cout << '\n';
-//  }
-//}
+TEST_P(CombinationTest, TopInputTest)
+{
+  EXPECT_EQ(1, GetParam()(1, 1));
+  EXPECT_EQ(1, GetParam()(5, 5));
+}
+
+TEST_P(CombinationTest, BigInputTest)
+{
+  constexpr auto max_value {std::numeric_limits<numeric_type>::max()};
+  EXPECT_EQ(1, GetParam()(max_value, 0));
+  EXPECT_EQ(max_value, GetParam()(max_value, 1));
+  EXPECT_EQ(1, GetParam()(max_value, max_value));
+  EXPECT_EQ(max_value, GetParam()(max_value, max_value - 1));
+}
+
+INSTANTIATE_TEST_CASE_P(FunctionsParameterized, CombinationTest,
+    ::testing::Values(reimplalgo::no_recursive::combination<numeric_type>,
+                      reimplalgo::simple_recursive::combination<numeric_type>));
