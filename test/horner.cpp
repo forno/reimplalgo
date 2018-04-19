@@ -53,4 +53,5 @@ TEST_P(HornerTest, NormalInputTest)
 }
 
 INSTANTIATE_TEST_CASE_P(FunctionsParameterized, HornerTest,
-    ::testing::Values(static_cast<func_signature>(reimplalgo::no_recursive::horner)));
+    ::testing::Values(static_cast<func_signature>(reimplalgo::no_recursive::horner),
+                      static_cast<func_signature>(reimplalgo::recursive::horner)));
