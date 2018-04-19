@@ -27,7 +27,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "reimplalgo/pow.hpp"
 
-#include <limis>
+#include <limits>
 
 #include <gtest/gtest.h>
 
@@ -50,7 +50,7 @@ TEST_P(PowTest, ZeroInputTest)
   EXPECT_EQ(0, GetParam()(0, 5));
   EXPECT_EQ(1, GetParam()(1, 0));
   EXPECT_EQ(1, GetParam()(5, 0));
-  constexpr auto max_value {std::numeric_limits<numeric_type>::max();
+  constexpr auto max_value {std::numeric_limits<numeric_type>::max()};
   EXPECT_EQ(1, GetParam()(max_value, 0));
   EXPECT_EQ(0, GetParam()(0, max_value));
 }
@@ -64,5 +64,5 @@ TEST_P(PowTest, NormalInputTest)
 }
 
 INSTANTIATE_TEST_CASE_P(FunctionsParameterized, PowTest,
-    ::testing::Values(reimplalgo::no_recursive::factorial<numeric_type>,
-                      reimplalgo::recursive::factorial<numeric_type>));
+    ::testing::Values(reimplalgo::no_recursive::pow<numeric_type>,
+                      reimplalgo::recursive::pow<numeric_type>));
