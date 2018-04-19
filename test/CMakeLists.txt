@@ -78,3 +78,7 @@ add_test(NAME test_horner COMMAND test_horner)
 add_executable(test_factorial factorial.cpp)
 target_link_libraries(test_factorial gmock_main)
 add_test(NAME test_factorial COMMAND test_factorial)
+
+add_executable(test_pow pow.cpp)
+target_link_libraries(test_pow gmock_main)
+add_test(NAME test_pow COMMAND test_pow)
