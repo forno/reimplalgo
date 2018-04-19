@@ -51,4 +51,5 @@ TEST_P(FuctorialTest, NormalInputTest)
 }
 
 INSTANTIATE_TEST_CASE_P(FunctionsParameterized, FuctorialTest,
-    ::testing::Values(reimplalgo::no_recursive::factorial<numeric_type>));
+    ::testing::Values(reimplalgo::no_recursive::factorial<numeric_type>,
+                      reimplalgo::recursive::factorial<numeric_type>));
