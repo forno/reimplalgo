@@ -47,10 +47,16 @@ constexpr ResultType horner(Iter1 begin, Iter2 end, const ResultType& input)
 
 }
 
-namespace simple_recursive
+namespace recursive
 {
 
-
+template<typename ResultType, typename Iter1, typename Iter2>
+constexpr ResultType horner(Iter1 begin, Iter2 end, const ResultType& input)
+{
+  if (begin == end)
+    return 0;
+  return horner(std::next(begin), end, input) * input + *begin;
+}
 
 }
 }
