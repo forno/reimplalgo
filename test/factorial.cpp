@@ -32,16 +32,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using numeric_type = int;
 using func_signature = numeric_type(*)(const numeric_type&);
 
-class FuctorialTest
+class FactorialTest
   : public ::testing::TestWithParam<func_signature>
 {
 protected:
-  virtual ~FuctorialTest();
+  virtual ~FactorialTest();
 };
 
-FuctorialTest::~FuctorialTest() = default;
+FactorialTest::~FactorialTest() = default;
 
-TEST_P(FuctorialTest, NormalInputTest)
+TEST_P(FactorialTest, NormalInputTest)
 {
   EXPECT_EQ(1, GetParam()(0));
   EXPECT_EQ(1, GetParam()(1));
@@ -50,6 +50,6 @@ TEST_P(FuctorialTest, NormalInputTest)
   EXPECT_EQ(40320, GetParam()(8));
 }
 
-INSTANTIATE_TEST_CASE_P(FunctionsParameterized, FuctorialTest,
+INSTANTIATE_TEST_CASE_P(FunctionsParameterized, FactorialTest,
     ::testing::Values(reimplalgo::no_recursive::factorial<numeric_type>,
                       reimplalgo::recursive::factorial<numeric_type>));
