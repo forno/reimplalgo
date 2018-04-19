@@ -47,6 +47,8 @@ namespace recursive
 template<typename T>
 T factorial(const T& input)
 {
+  if (input == 0)
+    return 1;
   return factorial(input - 1) * input;
 }
 
