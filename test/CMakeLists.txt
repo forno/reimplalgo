@@ -70,3 +70,7 @@ add_compile_options(
 add_executable(test_combination combination.cpp)
 target_link_libraries(test_combination gmock_main)
 add_test(NAME test_combination COMMAND test_combination)
+
+add_executable(test_horner horner.cpp)
+target_link_libraries(test_horner gmock_main)
+add_test(NAME test_horner COMMAND test_horner)
