@@ -33,8 +33,6 @@ namespace no_recursive
 template<typename T>
 T pow(const T& x, const T& y)
 {
-  if (y == 0)
-    return 1;
   auto divide_needs {y < 0};
 
   T ans {1};
