@@ -35,13 +35,12 @@ T pow(const T& x, const T& y)
 {
   if (y == 0)
     return 1;
-  if (y < 0)
-    return 1 / pow(x, -y);
+  auto divide_needs {y < 0};
 
-  T ans {x};
-  for (auto i {y}; i != 0; --i)
+  T ans {1};
+  for (auto i {divide_needs ? -y : y}; i != 0; --i)
     ans *= x;
-  return ans;
+  return divide_needs ? 1 / ans : ans;
 }
 
 }
