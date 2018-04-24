@@ -32,10 +32,60 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <vector>
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 TEST(RankMapTest, NullInputTest)
 {
   const std::vector<int> input {};
   EXPECT_TRUE(reimplalgo::rank_map(input.cbegin(), input.cend()).empty());
   EXPECT_TRUE(reimplalgo::rank_map(input.cbegin(), input.cend(), std::greater<int>{}).empty());
+  EXPECT_TRUE(reimplalgo::rank_map(input.cbegin(), input.cend(), [](auto lhs, auto rhs){return lhs < rhs;}).empty());
+}
+
+TEST(RankMapTest, OrderInputTest)
+{
+  using ::testing::ElementsAre;
+  using ::testing::Pair;
+
+  const std::vector input {1, 2, 3, 4, 5};
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend()),
+              ElementsAre(Pair(1, 0), Pair(2, 1), Pair(3, 2), Pair(4, 3), Pair(5, 4)));
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend(), std::greater<int>{}),
+              ElementsAre(Pair(5, 0), Pair(4, 1), Pair(3, 2), Pair(2, 3), Pair(1, 4)));
+}
+
+TEST(RankMapTest, ReverseInputTest)
+{
+  using ::testing::ElementsAre;
+  using ::testing::Pair;
+
+  const std::vector input {5, 4, 3, 2, 1};
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend()),
+              ElementsAre(Pair(1, 0), Pair(2, 1), Pair(3, 2), Pair(4, 3), Pair(5, 4)));
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend(), std::greater<int>{}),
+              ElementsAre(Pair(5, 0), Pair(4, 1), Pair(3, 2), Pair(2, 3), Pair(1, 4)));
+}
+
+TEST(RankMapTest, DuplicationInputTest)
+{
+  using ::testing::ElementsAre;
+  using ::testing::Pair;
+
+  const std::vector input {1, 1, 2, 2, 3};
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend()),
+              ElementsAre(Pair(1, 0), Pair(2, 2), Pair(3, 4)));
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend(), std::greater<int>{}),
+              ElementsAre(Pair(3, 0), Pair(2, 1), Pair(1, 3)));
+}
+
+TEST(RankMapTest, UnorderInputTest)
+{
+  using ::testing::ElementsAre;
+  using ::testing::Pair;
+
+  const std::vector input {4, 2, 1, 3, 5};
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend()),
+              ElementsAre(Pair(1, 0), Pair(2, 1), Pair(3, 2), Pair(4, 3), Pair(5, 4)));
+  EXPECT_THAT(reimplalgo::rank_map(input.cbegin(), input.cend(), std::greater<int>{}),
+              ElementsAre(Pair(5, 0), Pair(4, 1), Pair(3, 2), Pair(2, 3), Pair(1, 4)));
 }
