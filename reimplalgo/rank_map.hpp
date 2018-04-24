@@ -51,8 +51,8 @@ rank_map(Iter1 begin, Iter2 end, Compare comp_function = Compare{})
   std::map<ValueType, std::size_t, Compare> ans(std::move(comp_function));
   std::for_each(begin, end, [&ans](const auto& e){++ans[e];});
 
-  std::size_t rank_value {1};
-  std::for_each(ans.rbegin(), ans.rend(), [&rank_value](auto& e) {
+  std::size_t rank_value {0};
+  std::for_each(ans.begin(), ans.end(), [&rank_value](auto& e) {
     rank_value += std::exchange(e.second, rank_value);
   });
   return ans;
