@@ -82,3 +82,7 @@ add_test(NAME test_factorial COMMAND test_factorial)
 add_executable(test_pow pow.cpp)
 target_link_libraries(test_pow gmock_main)
 add_test(NAME test_pow COMMAND test_pow)
+
+add_executable(test_fibonacci fibonacci.cpp)
+target_link_libraries(test_fibonacci gmock_main)
+add_test(NAME test_fibonacci COMMAND test_fibonacci)
