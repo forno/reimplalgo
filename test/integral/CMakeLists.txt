@@ -1,0 +1,3 @@
+add_executable(test_trapezoidal_rule trapezoidal_rule.cpp)
+target_link_libraries(test_trapezoidal_rule gmock_main)
+add_test(NAME test_trapezoidal_rule COMMAND test_trapezoidal_rule)

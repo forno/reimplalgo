@@ -66,6 +66,8 @@ add_compile_options(
   $<$<CXX_COMPILER_ID:MSVC>:/W4>
 )
 
+add_subdirectory(integral)
+
 # Add some test
 add_executable(test_combination combination.cpp)
 target_link_libraries(test_combination gmock_main)
