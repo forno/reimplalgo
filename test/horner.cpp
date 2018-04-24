@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <gtest/gtest.h>
 
 using numeric_type = double;
-using func_signature = numeric_type(*)(std::vector<numeric_type>::iterator, std::vector<numeric_type>::iterator, const numeric_type&);
+using func_signature = numeric_type(*)(std::vector<numeric_type>::const_iterator, std::vector<numeric_type>::const_iterator, const numeric_type&);
 
 class HornerTest
   : public ::testing::TestWithParam<func_signature>
@@ -45,12 +45,12 @@ HornerTest::~HornerTest() = default;
 TEST_P(HornerTest, NormalInputTest)
 {
   std::vector<numeric_type> values {1, 2, 3, 4, 5};
-  EXPECT_EQ(1, GetParam()(values.begin(), values.end(), 0));
-  EXPECT_EQ(15, GetParam()(values.begin(), values.end(), 1));
-  EXPECT_EQ(129, GetParam()(values.begin(), values.end(), 2));
-  EXPECT_EQ(547, GetParam()(values.begin(), values.end(), 3));
-  EXPECT_EQ(1593, GetParam()(values.begin(), values.end(), 4));
-  EXPECT_EQ(3711, GetParam()(values.begin(), values.end(), 5));
+  EXPECT_EQ(1, GetParam()(values.cbegin(), values.cend(), 0));
+  EXPECT_EQ(15, GetParam()(values.cbegin(), values.cend(), 1));
+  EXPECT_EQ(129, GetParam()(values.cbegin(), values.cend(), 2));
+  EXPECT_EQ(547, GetParam()(values.cbegin(), values.cend(), 3));
+  EXPECT_EQ(1593, GetParam()(values.cbegin(), values.cend(), 4));
+  EXPECT_EQ(3711, GetParam()(values.cbegin(), values.cend(), 5));
 }
 
 INSTANTIATE_TEST_CASE_P(FunctionsParameterized, HornerTest,
