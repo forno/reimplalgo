@@ -58,121 +58,120 @@ TEST_P(TrapezoidalRuleTest, GeneralTest)
 
 INSTANTIATE_TEST_CASE_P(ConstantZeroTest, TrapezoidalRuleTest, ::testing::Combine(
     ::testing::Values([](double){return 0.;}),
-    ::testing::Values(std::tuple{0., 0., 0., 0},
+    ::testing::Values(std::tuple{0., 0., 0., 0}, // no partition
                       std::tuple{0., 0., 0., 1},
                       std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
                       std::tuple{0., 1., 1., 0},
                       std::tuple{0., -1., -1., 0},
-                      std::tuple{0., 0., 1., 1},
+                      std::tuple{0., 0., 1., 1}, // one partition
                       std::tuple{0., 0., 2., 1},
                       std::tuple{0., -1., 0., 1},
                       std::tuple{0., -2., 0., 1},
                       std::tuple{0., -1., 1., 1},
-                      std::tuple{0., 0., 1., 2},
+                      std::tuple{0., 0., 1., 2}, // two partitions
                       std::tuple{0., 0., 2., 2},
                       std::tuple{0., -1., 0., 2},
                       std::tuple{0., -2., 0., 2},
                       std::tuple{0., -1., 1., 2},
-                      std::tuple{0., -1., 1., 2},
-                      std::tuple{0., -4., 4., 8},
+                      std::tuple{0., -4., 4., 8}, // many partitions
                       std::tuple{0., -4., 4., 16},
-                      std::tuple{0., 0., 3., 3},
+                      std::tuple{0., 0., 3., 3}, // odd partitions
                       std::tuple{0., -1., 2., 3},
                       std::tuple{0., -1., 1., 3},
-                      std::tuple{0., -0., 0., 1})));
+                      std::tuple{0., -0., 0., 1}))); // minus zero test
 
 INSTANTIATE_TEST_CASE_P(ConstantOneTest, TrapezoidalRuleTest, ::testing::Combine(
     ::testing::Values([](double){return 1.;}),
-    ::testing::Values(std::tuple{0., 0., 0., 0},
+    ::testing::Values(std::tuple{0., 0., 0., 0}, // no partitions
                       std::tuple{0., 0., 0., 1},
                       std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
                       std::tuple{0., 1., 1., 0},
                       std::tuple{0., -1., -1., 0},
-                      std::tuple{1., 0., 1., 1},
+                      std::tuple{1., 0., 1., 1}, // one partition
                       std::tuple{2., 0., 2., 1},
                       std::tuple{1., -1., 0., 1},
                       std::tuple{2., -2., 0., 1},
                       std::tuple{2., -1., 1., 1},
-                      std::tuple{1., 0., 1., 2},
+                      std::tuple{1., 0., 1., 2}, // two partitions
                       std::tuple{2., 0., 2., 2},
                       std::tuple{1., -1., 0., 2},
                       std::tuple{2., -2., 0., 2},
                       std::tuple{2., -1., 1., 2},
-                      std::tuple{8., -4., 4., 8},
+                      std::tuple{8., -4., 4., 8}, // many partitions
                       std::tuple{8., -4., 4., 16},
-                      std::tuple{3., 0., 3., 3},
+                      std::tuple{3., 0., 3., 3}, // odd partitions
                       std::tuple{3., -1., 2., 3},
                       std::tuple{2., -1., 1., 3},
-                      std::tuple{0., -0., 0., 1})));
+                      std::tuple{0., -0., 0., 1}))); // minus zero test
 
 INSTANTIATE_TEST_CASE_P(SimpleLinearProportionalTest, TrapezoidalRuleTest, ::testing::Combine(
     ::testing::Values([](double e){return e;}),
-    ::testing::Values(std::tuple{0., 0., 0., 0},
+    ::testing::Values(std::tuple{0., 0., 0., 0}, // no partitions
                       std::tuple{0., 0., 0., 1},
                       std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
                       std::tuple{0., 1., 1., 0},
                       std::tuple{0., -1., -1., 0},
-                      std::tuple{0.5, 0., 1., 1},
+                      std::tuple{0.5, 0., 1., 1}, // one partition
                       std::tuple{2., 0., 2., 1},
                       std::tuple{-0.5, -1., 0., 1},
                       std::tuple{-2., -2., 0., 1},
                       std::tuple{0., -1., 1., 1},
-                      std::tuple{0.5, 0., 1., 2},
+                      std::tuple{0.5, 0., 1., 2}, // two partitions
                       std::tuple{2., 0., 2., 2},
                       std::tuple{-0.5, -1., 0., 2},
                       std::tuple{-2., -2., 0., 2},
                       std::tuple{0., -1., 1., 2},
-                      std::tuple{0., -4., 4., 8},
+                      std::tuple{0., -4., 4., 8}, // many partitions
                       std::tuple{0., -4., 4., 16},
-                      std::tuple{4.5, 0., 3., 3},
+                      std::tuple{4.5, 0., 3., 3}, // odd partitions
                       std::tuple{1.5, -1., 2., 3},
                       std::tuple{0., -1., 1., 3},
-                      std::tuple{0., -0., 0., 1})));
+                      std::tuple{0., -0., 0., 1}))); // minus zero test
 
 INSTANTIATE_TEST_CASE_P(HalfSizeLinearProportionalTest, TrapezoidalRuleTest, ::testing::Combine(
     ::testing::Values([](double e){return e/2;}),
-    ::testing::Values(std::tuple{0., 0., 0., 0},
+    ::testing::Values(std::tuple{0., 0., 0., 0}, // no partitions
                       std::tuple{0., 0., 0., 1},
                       std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
                       std::tuple{0., 1., 1., 0},
                       std::tuple{0., -1., -1., 0},
-                      std::tuple{0.25, 0., 1., 1},
+                      std::tuple{0.25, 0., 1., 1}, // one partition
                       std::tuple{1., 0., 2., 1},
                       std::tuple{-0.25, -1., 0., 1},
                       std::tuple{-1., -2., 0., 1},
                       std::tuple{0., -1., 1., 1},
-                      std::tuple{0.25, 0., 1., 2},
+                      std::tuple{0.25, 0., 1., 2}, // two partitions
                       std::tuple{1., 0., 2., 2},
                       std::tuple{-0.25, -1., 0., 2},
                       std::tuple{-1., -2., 0., 2},
                       std::tuple{0., -1., 1., 2},
-                      std::tuple{0., -4., 4., 8},
+                      std::tuple{0., -4., 4., 8}, // many partitions
                       std::tuple{0., -4., 4., 16},
-                      std::tuple{2.25, 0., 3., 3},
+                      std::tuple{2.25, 0., 3., 3}, // odd partitions
                       std::tuple{0.75, -1., 2., 3},
                       std::tuple{0., -1., 1., 3},
-                      std::tuple{0., -0., 0., 1})));
+                      std::tuple{0., -0., 0., 1}))); // minus zero test
 
 INSTANTIATE_TEST_CASE_P(SquareTest, TrapezoidalRuleTest, ::testing::Combine(
     ::testing::Values([](double e){return e*e;}),
-    ::testing::Values(std::tuple{0., 0., 0., 0},
+    ::testing::Values(std::tuple{0., 0., 0., 0}, // no partitions
                       std::tuple{0., 0., 0., 1},
                       std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
                       std::tuple{0., 1., 1., 0},
                       std::tuple{0., -1., -1., 0},
-                      std::tuple{0.5, 0., 1., 1},
+                      std::tuple{0.5, 0., 1., 1}, // one partition
                       std::tuple{4., 0., 2., 1},
                       std::tuple{0.5, -1., 0., 1},
                       std::tuple{4., -2., 0., 1},
                       std::tuple{2., -1., 1., 1},
-                      std::tuple{0.375, 0., 1., 2},
+                      std::tuple{0.375, 0., 1., 2}, // two partitions
                       std::tuple{3., 0., 2., 2},
                       std::tuple{0.375, -1., 0., 2},
                       std::tuple{3, -2., 0., 2},
                       std::tuple{1, -1., 1., 2},
-                      std::tuple{44., -4., 4., 8},
+                      std::tuple{44., -4., 4., 8}, // many partitions
                       std::tuple{43., -4., 4., 16},
-                      std::tuple{9.5, 0., 3., 3},
+                      std::tuple{9.5, 0., 3., 3}, // odd partitions
                       std::tuple{3.5, -1., 2., 3},
                       std::tuple{22./27., -1., 1., 3},
-                      std::tuple{0., -0., 0., 1})));
+                      std::tuple{0., -0., 0., 1}))); // minus zero test
