@@ -48,12 +48,12 @@ TEST_P(TrapezoidalRuleTest, GeneralTest)
   const auto test_data {GetParam()};
   const auto integrand {std::get<0>(test_data)};
   const auto parameters {std::get<1>(test_data)};
-  EXPECT_EQ(std::get<0>(parameters),
-            reimplalgo::integral::trapezoidal_rule(
-                integrand,
-                std::get<1>(parameters),
-                std::get<2>(parameters),
-                std::get<3>(parameters)));
+  EXPECT_DOUBLE_EQ(std::get<0>(parameters),
+                   reimplalgo::integral::trapezoidal_rule(
+                       integrand,
+                       std::get<1>(parameters),
+                       std::get<2>(parameters),
+                       std::get<3>(parameters)));
 }
 
 INSTANTIATE_TEST_CASE_P(ConstantZeroTest, TrapezoidalRuleTest, ::testing::Combine(
@@ -73,8 +73,12 @@ INSTANTIATE_TEST_CASE_P(ConstantZeroTest, TrapezoidalRuleTest, ::testing::Combin
                       std::tuple{0., -1., 0., 2},
                       std::tuple{0., -2., 0., 2},
                       std::tuple{0., -1., 1., 2},
+                      std::tuple{0., -1., 1., 2},
                       std::tuple{0., -4., 4., 8},
                       std::tuple{0., -4., 4., 16},
+                      std::tuple{0., 0., 3., 3},
+                      std::tuple{0., -1., 2., 3},
+                      std::tuple{0., -1., 1., 3},
                       std::tuple{0., -0., 0., 1})));
 
 INSTANTIATE_TEST_CASE_P(ConstantOneTest, TrapezoidalRuleTest, ::testing::Combine(
@@ -96,6 +100,9 @@ INSTANTIATE_TEST_CASE_P(ConstantOneTest, TrapezoidalRuleTest, ::testing::Combine
                       std::tuple{2., -1., 1., 2},
                       std::tuple{8., -4., 4., 8},
                       std::tuple{8., -4., 4., 16},
+                      std::tuple{3., 0., 3., 3},
+                      std::tuple{3., -1., 2., 3},
+                      std::tuple{2., -1., 1., 3},
                       std::tuple{0., -0., 0., 1})));
 
 INSTANTIATE_TEST_CASE_P(SimpleLinearProportionalTest, TrapezoidalRuleTest, ::testing::Combine(
@@ -117,6 +124,9 @@ INSTANTIATE_TEST_CASE_P(SimpleLinearProportionalTest, TrapezoidalRuleTest, ::tes
                       std::tuple{0., -1., 1., 2},
                       std::tuple{0., -4., 4., 8},
                       std::tuple{0., -4., 4., 16},
+                      std::tuple{4.5, 0., 3., 3},
+                      std::tuple{1.5, -1., 2., 3},
+                      std::tuple{0., -1., 1., 3},
                       std::tuple{0., -0., 0., 1})));
 
 INSTANTIATE_TEST_CASE_P(HalfSizeLinearProportionalTest, TrapezoidalRuleTest, ::testing::Combine(
@@ -138,6 +148,9 @@ INSTANTIATE_TEST_CASE_P(HalfSizeLinearProportionalTest, TrapezoidalRuleTest, ::t
                       std::tuple{0., -1., 1., 2},
                       std::tuple{0., -4., 4., 8},
                       std::tuple{0., -4., 4., 16},
+                      std::tuple{2.25, 0., 3., 3},
+                      std::tuple{0.75, -1., 2., 3},
+                      std::tuple{0., -1., 1., 3},
                       std::tuple{0., -0., 0., 1})));
 
 INSTANTIATE_TEST_CASE_P(SquareTest, TrapezoidalRuleTest, ::testing::Combine(
@@ -159,4 +172,7 @@ INSTANTIATE_TEST_CASE_P(SquareTest, TrapezoidalRuleTest, ::testing::Combine(
                       std::tuple{1, -1., 1., 2},
                       std::tuple{44., -4., 4., 8},
                       std::tuple{43., -4., 4., 16},
+                      std::tuple{9.5, 0., 3., 3},
+                      std::tuple{3.5, -1., 2., 3},
+                      std::tuple{22./27., -1., 1., 3},
                       std::tuple{0., -0., 0., 1})));
