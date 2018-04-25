@@ -28,12 +28,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "reimplalgo/integral/trapezoidal_rule.hpp"
 
+#include <tuple>
+
 #include <gtest/gtest.h>
 
 using func_signature = double(*)(double);
 
 class TrapezoidalRuleTest
-  : public ::testing::TestWithParam<func_signature>
+  : public ::testing::TestWithParam<std::tuple<func_signature, std::tuple<double, double, double, std::size_t>>>
 {
 protected:
   virtual ~TrapezoidalRuleTest();
@@ -41,17 +43,48 @@ protected:
 
 TrapezoidalRuleTest::~TrapezoidalRuleTest() = default;
 
-TEST_P(TrapezoidalRuleTest, NullInputTest)
+TEST_P(TrapezoidalRuleTest, GeneralTest)
 {
-  EXPECT_EQ(0, reimplalgo::integral::trapezoidal_rule(GetParam(), 0., 0., 0));
-  EXPECT_EQ(0, reimplalgo::integral::trapezoidal_rule(GetParam(), 0., 0., 1));
-  EXPECT_EQ(0, reimplalgo::integral::trapezoidal_rule(GetParam(), 0., 0., std::numeric_limits<std::size_t>::max()));
-  EXPECT_EQ(0, reimplalgo::integral::trapezoidal_rule(GetParam(), 1., 1., 0));
-  EXPECT_EQ(0, reimplalgo::integral::trapezoidal_rule(GetParam(), -1., -1., 0));
+  const auto test_data {GetParam()};
+  const auto integrand {std::get<0>(test_data)};
+  const auto parameters {std::get<1>(test_data)};
+  EXPECT_EQ(std::get<0>(parameters),
+            reimplalgo::integral::trapezoidal_rule(
+                integrand,
+                std::get<1>(parameters),
+                std::get<2>(parameters),
+                std::get<3>(parameters)));
 }
 
-INSTANTIATE_TEST_CASE_P(FunctionsParameterized, TrapezoidalRuleTest, ::testing::Values(
-    [](double e){return 0.;},
-    [](double e){return e;},
-    [](double e){return e/2;},
-    [](double e){return e*e;}));
+INSTANTIATE_TEST_CASE_P(ConstantZeroTest, TrapezoidalRuleTest, ::testing::Combine(
+    ::testing::Values([](double){return 0.;}),
+    ::testing::Values(std::tuple{0., 0., 0., 0},
+                      std::tuple{0., 0., 0., 1},
+                      std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
+                      std::tuple{0., 1., 1., 0},
+                      std::tuple{0., -1., -1., 0})));
+
+INSTANTIATE_TEST_CASE_P(SimpleLinearProportionalTest, TrapezoidalRuleTest, ::testing::Combine(
+    ::testing::Values([](double e){return e;}),
+    ::testing::Values(std::tuple{0., 0., 0., 0},
+                      std::tuple{0., 0., 0., 1},
+                      std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
+                      std::tuple{0., 1., 1., 0},
+                      std::tuple{0., -1., -1., 0})));
+
+INSTANTIATE_TEST_CASE_P(HalfSizeLinearProportionalTest, TrapezoidalRuleTest, ::testing::Combine(
+    ::testing::Values([](double e){return e/2;}),
+    ::testing::Values(std::tuple{0., 0., 0., 0},
+                      std::tuple{0., 0., 0., 1},
+                      std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
+                      std::tuple{0., 1., 1., 0},
+                      std::tuple{0., -1., -1., 0})));
+
+
+INSTANTIATE_TEST_CASE_P(SquareTest, TrapezoidalRuleTest, ::testing::Combine(
+    ::testing::Values([](double e){return e*e;}),
+    ::testing::Values(std::tuple{0., 0., 0., 0},
+                      std::tuple{0., 0., 0., 1},
+                      std::tuple{0., 0., 0., std::numeric_limits<std::size_t>::max()},
+                      std::tuple{0., 1., 1., 0},
+                      std::tuple{0., -1., -1., 0})));
