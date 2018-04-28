@@ -41,7 +41,7 @@ T trapezoidal_rule_impl(F integrand, const T& begin, const T& end, std::size_t c
   if (count_partions == 1)
     return integrand(begin) * (end - begin);
   const auto counts_left {count_partions / 2};
-  const auto mid {begin + (end - begin) / count_partions * counts_left};
+  const auto mid {begin + (end - begin) / static_cast<T>(count_partions) * static_cast<T>(counts_left)};
   return trapezoidal_rule_impl(integrand, begin, mid, counts_left) +
          trapezoidal_rule_impl(integrand, mid, end, count_partions - counts_left);
 }
@@ -54,7 +54,7 @@ T trapezoidal_rule(F integrand, const T& begin, const T& end, std::size_t count_
   if (begin == end || count_partions == 0)
     return 0;
   return trapezoidal_rule_impl(integrand, begin, end, count_partions) + 
-             (-integrand(begin) + integrand(end)) * (end - begin) / count_partions / 2;
+             (-integrand(begin) + integrand(end)) * (end - begin) / static_cast<T>(count_partions) / 2;
 }
 
 }
