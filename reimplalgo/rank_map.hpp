@@ -38,13 +38,10 @@ namespace reimplalgo
 
 template<typename Iter1,
          typename Iter2,
-         typename Compare =
-             std::less<std::common_type_t<
-                           typename std::iterator_traits<Iter1>::value_type,
-                           typename std::iterator_traits<Iter2>::value_type>>,
          typename ValueType =
              std::common_type_t<typename std::iterator_traits<Iter1>::value_type,
-                                typename std::iterator_traits<Iter2>::value_type>>
+                                typename std::iterator_traits<Iter2>::value_type>,
+         typename Compare = std::less<ValueType>>
 std::map<ValueType, std::size_t, Compare>
 rank_map(Iter1 begin, Iter2 end, Compare comp_function = Compare{})
 {
