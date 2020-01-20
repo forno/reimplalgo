@@ -33,6 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <gtest/gtest.h>
 
 using func_signature = double(*)(double);
+constexpr auto big_partition {1ull << 16};
 
 class TrapezoidalRuleTest
   : public ::testing::TestWithParam<std::tuple<func_signature, std::tuple<double, double, double, std::size_t>>>
@@ -99,6 +100,8 @@ INSTANTIATE_TEST_CASE_P(ConstantOneTest, TrapezoidalRuleTest, ::testing::Combine
                       std::tuple{2., -1., 1., 2},
                       std::tuple{8., -4., 4., 8}, // many partitions
                       std::tuple{8., -4., 4., 16},
+                      std::tuple{2., 0., 2., 16},
+                      std::tuple{2., 0., 2., big_partition},
                       std::tuple{3., 0., 3., 3}, // odd partitions
                       std::tuple{3., -1., 2., 3},
                       std::tuple{2., -1., 1., 3},
@@ -123,6 +126,8 @@ INSTANTIATE_TEST_CASE_P(SimpleLinearProportionalTest, TrapezoidalRuleTest, ::tes
                       std::tuple{0., -1., 1., 2},
                       std::tuple{0., -4., 4., 8}, // many partitions
                       std::tuple{0., -4., 4., 16},
+                      std::tuple{2., 0., 2., 16},
+                      std::tuple{2., 0., 2., big_partition},
                       std::tuple{4.5, 0., 3., 3}, // odd partitions
                       std::tuple{1.5, -1., 2., 3},
                       std::tuple{0., -1., 1., 3},
@@ -147,6 +152,8 @@ INSTANTIATE_TEST_CASE_P(HalfSizeLinearProportionalTest, TrapezoidalRuleTest, ::t
                       std::tuple{0., -1., 1., 2},
                       std::tuple{0., -4., 4., 8}, // many partitions
                       std::tuple{0., -4., 4., 16},
+                      std::tuple{1., 0., 2., 16},
+                      std::tuple{1., 0., 2., big_partition},
                       std::tuple{2.25, 0., 3., 3}, // odd partitions
                       std::tuple{0.75, -1., 2., 3},
                       std::tuple{0., -1., 1., 3},
@@ -171,6 +178,8 @@ INSTANTIATE_TEST_CASE_P(SquareTest, TrapezoidalRuleTest, ::testing::Combine(
                       std::tuple{1, -1., 1., 2},
                       std::tuple{44., -4., 4., 8}, // many partitions
                       std::tuple{43., -4., 4., 16},
+                      std::tuple{2.671875, 0., 2., 16},
+                      std::tuple{2.6666666669771075, 0., 2., big_partition},
                       std::tuple{9.5, 0., 3., 3}, // odd partitions
                       std::tuple{3.5, -1., 2., 3},
                       std::tuple{22./27., -1., 1., 3},
