@@ -25,6 +25,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#include <utility>
 
 namespace reimplalgo
 {
@@ -36,11 +37,8 @@ T fibonacci(const T& input)
 {
   T old_value {0};
   T last_value {1};
-  for (auto i {input}; i != 0; --i) {
-    const auto ans = old_value + last_value;
-    old_value = last_value;
-    last_value = ans;
-  }
+  for (auto i {input}; i != 0; --i)
+    old_value = std::exchange(last_value, old_value + last_value);
   return old_value;
 }
 
