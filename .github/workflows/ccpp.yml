@@ -13,8 +13,8 @@ jobs:
       run: mkdir build
     - name: cd build
       run: cd build
-    - name: cmake
-      run: cmake
+    - name: cmake ..
+      run: cmake ..
     - name: make
       run: make
     - name: make test
