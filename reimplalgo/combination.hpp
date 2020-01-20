@@ -35,7 +35,7 @@ template<typename T>
 constexpr T combination_impl(const T& n, const T& r)
 {
   T ans {1};
-  for (auto i {0}; i < r; ++i)
+  for (T i {0}; i < r; ++i)
     ans = ans * (n - i) / (i + 1);
   return ans;
 }
