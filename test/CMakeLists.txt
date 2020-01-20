@@ -18,7 +18,6 @@ set(GNU_WARN_OPTIONS
   -Wall
   -Wextra
   -Wpedantic
-  -Wchkp
   -Wdouble-promotion
   -Wnull-dereference
   -Wimplicit-fallthrough
