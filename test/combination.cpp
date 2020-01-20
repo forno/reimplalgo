@@ -49,6 +49,9 @@ TEST_P(CombinationTest, NormalInputTest)
   EXPECT_EQ(3, GetParam()(3, 2));
   EXPECT_EQ(6, GetParam()(4, 2));
   EXPECT_EQ(124750, GetParam()(500, 2));
+  EXPECT_EQ(142506, GetParam()(30, 5));
+  EXPECT_EQ(38760, GetParam()(20, 6));
+  EXPECT_EQ(11440, GetParam()(16, 7));
 }
 
 TEST_P(CombinationTest, ZeroInputTest)

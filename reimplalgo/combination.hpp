@@ -36,7 +36,7 @@ constexpr T combination_impl(const T& n, const T& r)
 {
   T ans {1};
   for (T i {0}; i < r; ++i)
-    ans = ans * (n - i) / (i + 1);
+    ans = ans * (n - i) / (i + 1); // avoid under flow
   return ans;
 }
 
